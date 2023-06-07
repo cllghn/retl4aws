@@ -1,0 +1,70 @@
+---
+title: "R ETL with AWS"
+format: html
+---
+
+# Preface
+
+
+# The Parts
+
+## Access your AWS EC2
+ 
+Open an SSH client. Locate your privat key used to launch the instance. Run the command if necessary, to ensure the key in no publically viewble.
+
+On Linux, it is as easy as using the `chmod`:
+```{bash eval = FALSE}
+chmod 400 csgkp.pem
+```
+
+Connect to your instance using its public DNS. For example:
+
+```{bash, eval = FALSE}
+ ssh -i "csgkp.pem" user@[machine].[region].compute.amazonaws.com
+```
+
+```{bash, echo = FALSE, eval = FALSE}
+ ssh -i "csgkp.pem" ec2-user@ec2-18-223-43-27.us-east-2.compute.amazonaws.com
+```
+
+Voila! You now have access to your server from the terminal.
+
+## Setting up the required components
+
+First, install and set up Git:
+
+```{bash, eval = FALSE}
+sudo yum install git -y
+```
+
+Check the install:
+
+```{bash eval = FALSE}
+git --version
+```
+
+You will also need to set up the basic Git configuration:
+
+```{bash eval = FALSE}
+git config --global user.name "Your Username"
+git config --global user.email "Your Email ID"
+```
+
+Check that it worked:
+
+```{bash eval = FALSE}
+git config --list
+```
+
+Now clone this repo into the server:
+
+```{bash eval = FALSE}
+git clone 
+```
+
+
+# Assembling the Pieces
+
+
+# Parting Thoughts
+
