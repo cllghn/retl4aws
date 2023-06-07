@@ -29,7 +29,7 @@ Connect to your instance using its public DNS. For example:
 
 Voila! You now have access to your server from the terminal.
 
-## Setting up the required components
+## Setting up Git and Cloning Repo
 
 First, install and set up Git:
 
@@ -59,9 +59,65 @@ git config --list
 Now clone this repo into the server:
 
 ```{bash eval = FALSE}
-git clone 
+git clone https://github.com/cllghn/retl4aws 
 ```
 
+## Install R
+
+Enable the Extra Packages for Enterprise Linux (EPEL) repository:
+
+```{bash eval = FALSE}
+sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
+```
+
+Enable the Optional repository:
+
+```{bash eval = FALSE}
+sudo subscription-manager repos --enable "rhel-*-optional-rpms"
+```
+
+Define the R version: 
+
+```{bash eval = FALSE}
+export R_VERSION=4.2.3
+```
+
+Download and install the desired version of R:
+
+```{bash eval = FALSE}
+curl -O https://cdn.rstudio.com/r/rhel-9/pkgs/R-${R_VERSION}-1-1.x86_64.rpm
+sudo dnf install R-${R_VERSION}-1-1.x86_64.rpm
+```
+
+Make sure it all worked according to plan:
+
+```{bash eval = FALSE}
+/opt/R/${R_VERSION}/bin/R --version
+```
+
+Ensure that R is available on the default `PATH` variable by creating symbolic links to the version you installed:
+
+```{bash eval = FALSE}
+sudo ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R
+sudo ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript
+```
+
+## Set up Shiny Server
+
+Before installing Shiny Server you must have R installed. Also, install the Shiny R package:
+
+```{bash eval = FALSE}
+sudo su - \
+    -c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')\""
+```
+
+Download and install the Shiny Server:
+
+```{bash eval = FALSE}
+wget https://download3.rstudio.org/centos7/x86_64/shiny-server-1.5.20.1002-x86_64.rpm
+
+sudo yum install --nogpgcheck shiny-server-1.5.20.1002-x86_64.rpm
+```
 
 # Assembling the Pieces
 

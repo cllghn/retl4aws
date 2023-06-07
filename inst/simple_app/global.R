@@ -6,7 +6,7 @@ library(visNetwork)
 library(dplyr)
 library(dbplyr)
 library(stringr)
-library(rmarkdown)
+
 
 get_edges <- function(wanted_pid, n, con) {
   if (!dbExistsTable(conn = con, "person_x_events")) {
