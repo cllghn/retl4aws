@@ -24,7 +24,7 @@ Connect to your instance using its public DNS. For example:
 ```
 
 ```{bash, echo = FALSE, eval = FALSE}
- ssh -i "csgkp.pem" ec2-user@ec2-3-145-161-146.us-east-2.compute.amazonaws.com
+ ssh -i "csgkp.pem" ec2-user@ec2-3-15-1-248.us-east-2.compute.amazonaws.com
 ```
 
 Voila! You now have access to your server from the terminal.
@@ -67,13 +67,14 @@ sudo git clone https://github.com/cllghn/retl4aws
 Enable the Extra Packages for Enterprise Linux (EPEL) repository:
 
 ```{bash eval = FALSE}
-sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
+sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 ```
 
 Enable the Optional repository:
 
 ```{bash eval = FALSE}
-sudo subscription-manager repos --enable "rhel-*-optional-rpms"
+sudo dnf install dnf-plugins-core
+sudo dnf config-manager --set-enabled codeready-builder-for-rhel-9-*-rpms
 ```
 
 Define the R version: 
@@ -98,7 +99,7 @@ Make sure it all worked according to plan:
 Ensure that R is available on the default `PATH` variable by creating symbolic links to the version you installed:
 
 ```{bash eval = FALSE}
-sudo ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R
+sudo ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R -f
 sudo ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript
 ```
 
@@ -151,6 +152,26 @@ sudo su - \
 
 
 ## Set up RStudio Server
+
+```{bash eval = FALSE}
+sudo yum -y install openssl openssl-devel
+```
+
+```{bash eval = FALSE}
+wget https://download2.rstudio.org/server/rhel9/x86_64/rstudio-server-rhel-2023.03.1-446-x86_64.rpm
+
+
+```
+
+```{bash eval = FALSE}
+sudo yum install rstudio-server-rhel-2023.03.1-446-x86_64.rpm
+```
+
+Create user account:
+
+```{bash eval = FALSE}
+useradd -r chris
+```
 
 # Assembling the Pieces
 
